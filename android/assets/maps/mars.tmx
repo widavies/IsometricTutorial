@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="isometric" renderorder="right-down" width="80" height="80" tilewidth="256" tileheight="192" nextobjectid="1">
+ <tileset firstgid="1" name="untitled" tilewidth="256" tileheight="192" tilecount="4">
+  <image source="untitled.png" width="512" height="384"/>
+  <tile id="0">
+   <properties>
+    <property name="animation" value="flower"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="animation" value="flower"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="5" name="buildings1x1" tilewidth="256" tileheight="642" tilecount="1">
+  <image source="buildings1x1.png" width="256" height="642"/>
+ </tileset>
+ <tileset firstgid="6" name="buildings2x2" tilewidth="512" tileheight="1381" tilecount="1">
+  <tileoffset x="0" y="92"/>
+  <image source="buildings2x2.png" width="512" height="1381"/>
+ </tileset>
+ <layer name="Background" width="80" height="80">
+  <data encoding="base64" compression="zlib">
+   eJzt0MENAgEMA0Gg/6J5UIIt+SJmJP+Tfb0AAACe5fNna1v/o9+tta3/0e/W2tb/6Hdrbet/9Lu1tvU/+t1a2/of/W6tbf2PfrfWltzyHk0//fT70S+jX0a/jH4Z/TL6ZfTL6JfRL6NfRr+Mfhn9Mvpl9Mvol9Evo19Gv4x+Gf0y+mX0y+iX0S+jX0a/THLLxbWt/9Hv1trW/+h3a23rf/S7tbb1P/rdWtv6H/1urW39j3631rb+R79bAwAAeJovVVkYnQ==
+  </data>
+ </layer>
+ <layer name="Buildings" width="80" height="80">
+  <data encoding="base64" compression="zlib">
+   eJzt06EBAAAIw7Ap/j8ZgUaDSFQfaAIAAAAAAAAAAAAAAAAAo5YG/vMvAAAAAAAAAAAAwJ0Ge8wAGQ==
+  </data>
+ </layer>
+</map>
