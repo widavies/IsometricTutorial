@@ -2,59 +2,57 @@ package com.isometric.gamestates;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.input.GestureDetector;
-import com.isometric.engine.Input;
-import com.isometric.engine.World;
-
-import java.util.Stack;
 
 public class GameStateManager {
 
-    private Stack<GameState> gameStates;
+    /*
+     * Stores the active game states
+     */
+    private GameState active;
 
-    private Input input;
-
-    public static final int WORLD = 0;
+    public static final int MENU = 0, WORLD = 1;
 
     public GameStateManager() {
-        gameStates = new Stack<GameState>();
+        // States
+        setState(WORLD);
+    }
 
-        input = new Input();
+    public void setState(int state) {
+        active = getState(state);
 
+        // Re-point the input
+        syncInput(null);
+    }
+
+    /*
+     * Points the input pipeline to the game state at the top of the stack.
+     * InputProcessors can also be added onto the input pipeline if wanted
+     */
+    public void syncInput(InputProcessor processor) {
         InputMultiplexer im = new InputMultiplexer();
-        GestureDetector gd = new GestureDetector(input);
-        im.addProcessor(gd);
-        im.addProcessor(input);
+
+        /*
+         * This is the order in which input is processed. If the input method
+         * returns false, then the next processor down the line will get a chance
+         * at processing the event
+         */
+        if(processor != null) im.addProcessor(processor);
+        im.addProcessor(new GestureDetector(active));
+        im.addProcessor(active);
         Gdx.input.setInputProcessor(im);
-
-        pushGameState(WORLD);
-    }
-
-    public void loadState(int state) {
-        gameStates.pop().dispose();
-    }
-
-    private void pushGameState(int state) {
-        gameStates.push(getState(state));
-        input.setActive(gameStates.peek());
     }
 
     private GameState getState(int state) {
         if(state == WORLD) return new World(this);
         return null;
     }
+
     /*
      * Pass through methods
      */
-    public void render(float delta) {
-        if(!gameStates.isEmpty()) gameStates.peek().render(delta);
-    }
-
-    public void resize(int width, int height) {
-        if(!gameStates.isEmpty()) gameStates.peek().resize(width, height);
-    }
-
-    public void dispose() {
-        if(!gameStates.isEmpty()) gameStates.peek().dispose();
-    }
+    public void render(float delta) {if(active != null) active.render(delta);}
+    public void resize(int width, int height) {if(active != null) active.resize(width, height);}
+    public void dispose() {if(active != null) active.dispose();}
 }
